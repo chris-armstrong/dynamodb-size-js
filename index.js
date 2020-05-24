@@ -135,3 +135,16 @@ module.exports = function calculateDocumentSize (doc) {
   }
   return size;
 };
+
+Object.assign(module.exports, {
+  calculateString,
+  calculateUnknown,
+  calculateSet,
+  calculateNull,
+  calculateBinary,
+  calculateNumber,
+  calculateBoolean,
+  calculateObject,
+  calculateArray,
+});
+
