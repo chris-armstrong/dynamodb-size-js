@@ -44,8 +44,8 @@ const isBinary = x => {
 
 const calculateObject = x => {
   let size = COMPOSITE_ITEM_OVERHEAD;
-  for (const key in x) {
-    if (!Object.hasOwnProperty(x, key)) continue;
+  const keys = Object.getOwnPropertyNames(x);
+  for (const key of keys) {
     const val = x[key];
     const keySize = calculateString(key);
     const valSize = calculateUnknown(val);
