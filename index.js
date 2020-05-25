@@ -5,6 +5,11 @@ const HAS_ARRAY_BUFFER = typeof globalVar.ArrayBuffer === 'function';
 const HAS_DATA_VIEW = typeof globalVar.DataView === 'function';
 const HAS_TYPED_ARRAY = typeof globalVar.Int8Array === 'function';
 
+// Overhead of an list item or map key-value pair (undocumented)
+const NESTED_ITEM_OVERHEAD = 1;
+// Overhead of a map or list object
+const COMPOSITE_ITEM_OVERHEAD = 3;
+
 const TypedArrayTypes = [
   'Int8Array',
   'Uint8Array',
@@ -38,18 +43,19 @@ const isBinary = x => {
 };
 
 const calculateObject = x => {
-  let size = 3;
+  let size = COMPOSITE_ITEM_OVERHEAD;
   for (const key in x) {
+    if (!Object.hasOwnProperty(x, key)) continue;
     const val = x[key];
-    const keySize = calculateUnknown(key);
+    const keySize = calculateString(key);
     const valSize = calculateUnknown(val);
-    size += keySize + valSize + 1;
+    size += keySize + valSize + NESTED_ITEM_OVERHEAD;
   }
   return size;
 };
 
 const calculateArray = x => {
-  return x.reduce((size, nextItem) => size + calculateUnknown(nextItem), 3);
+  return x.reduce((size, nextItem) => size + calculateUnknown(nextItem) + NESTED_ITEM_OVERHEAD, COMPOSITE_ITEM_OVERHEAD);
 };
 
 const calculateString = x => {
@@ -147,4 +153,3 @@ Object.assign(module.exports, {
   calculateObject,
   calculateArray,
 });
-
