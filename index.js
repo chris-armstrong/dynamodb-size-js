@@ -55,7 +55,9 @@ const calculateObject = x => {
 };
 
 const calculateArray = x => {
-  return x.reduce((size, nextItem) => size + calculateUnknown(nextItem) + NESTED_ITEM_OVERHEAD, COMPOSITE_ITEM_OVERHEAD);
+  let size = COMPOSITE_ITEM_OVERHEAD;
+  size += x.reduce((size, nextItem) => size + calculateUnknown(nextItem) + NESTED_ITEM_OVERHEAD, 0);
+  return size;
 };
 
 const calculateString = x => {
@@ -109,6 +111,8 @@ const calculateBinary = x => {
 const calculateUnknown = x => {
   if (isArray(x)) {
     return calculateArray(x);
+  } else if (isSet(x)) {
+    return calculateSet(x);
   } else if (isObject(x)) {
     return calculateObject(x);
   } else if (isString(x)) {
@@ -121,8 +125,6 @@ const calculateUnknown = x => {
     return calculateBinary(x);
   } else if (isNull(x)) {
     return calculateNull(x);
-  } else if (isSet(x)) {
-    return calculateSet(x);
   }
   return 0;
 };
@@ -133,9 +135,10 @@ module.exports = function calculateDocumentSize (doc) {
   }
 
   let size = 0;
-  for (const key in doc) {
+  const keys = Object.getOwnPropertyNames(doc);
+  for (const key of keys) {
     const val = doc[key];
-    const keySize = calculateUnknown(key);
+    const keySize = calculateString(key);
     const valSize = calculateUnknown(val);
     size += keySize + valSize;
   }
