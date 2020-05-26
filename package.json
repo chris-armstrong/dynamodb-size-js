@@ -1,6 +1,6 @@
 {
   "name": "dynamodb-size",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Estimate the size of the documents you store in DynamoDB",
   "main": "index.js",
   "author": {
