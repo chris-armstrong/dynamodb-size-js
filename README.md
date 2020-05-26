@@ -4,6 +4,11 @@ A DynamoDB size calculator, based on [this article](https://medium.com/@zaccharl
 
 Works on your objects before DynamoDB object-structure conversion (i.e. those you'd pass to the `DocumentClient` interface, not the `DynamoDB` interface`).
 
+You may find this useful for:
+* Identifying objects that are too big to store in DynamoDB (such as when using BatchWriteItem)
+* Estimating the storage cost of a large number of objects before a bulk-import or data migration
+* Optimising the size of objects in a busy table
+
 *No guarantees that this is accurate, correct, complete or fully tested - it should only be used for estimations.*
 
 ## Installation
@@ -26,6 +31,8 @@ const myObject = {
 
 const sizeOfMyObject = calculateDynamoDBSize(myObject);
 ```
+
+The size is given in estimated bytes.
 
 ## License
 

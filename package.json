@@ -1,12 +1,15 @@
 {
   "name": "dynamodb-size",
   "version": "1.0.3",
-  "description": "",
+  "description": "Estimate the size of the documents you store in DynamoDB",
   "main": "index.js",
   "author": {
     "name": "Chris Armstrong"
   },
   "license": "MIT",
+  "repository": {
+    "url": "https://github.com/chris-armstrong/dynamodb-size-js.git"
+  },
   "devDependencies": {
     "aws-sdk": "^2.683.0",
     "eslint": "^7.0.0",
