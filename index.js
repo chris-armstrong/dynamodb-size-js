@@ -78,7 +78,13 @@ const calculateSignificantDigits = x => {
   }
   return Math.floor(Math.log(n) / log10) + 1;
 };
-const calculateNumber = x => Math.ceil(calculateSignificantDigits(x) / 2) + (x >= 0 ? 1 : 2);
+const calculateNumber = x => {
+  if (!Number.isNaN(x) || !Number.isFinite(x)) {
+    return 0; // FIXME: How much do these take up?
+  }
+  return Math.ceil(calculateSignificantDigits(x) / 2) + (x >= 0 ? 1 : 2);
+};
+
 const calculateNull = () => 1;
 const calculateSet = x => {
   let calculator;
