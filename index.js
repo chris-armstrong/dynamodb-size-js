@@ -115,10 +115,14 @@ const calculateBinary = x => {
 };
 
 const calculateUnknown = x => {
+  // Object-related checks must appear before isObject,
+  // otherwise they will be skipped
   if (isArray(x)) {
     return calculateArray(x);
   } else if (isSet(x)) {
     return calculateSet(x);
+  } else if (isBinary(x)) {
+    return calculateBinary(x);
   } else if (isObject(x)) {
     return calculateObject(x);
   } else if (isString(x)) {
@@ -127,8 +131,6 @@ const calculateUnknown = x => {
     return calculateNumber(x);
   } else if (isBoolean(x)) {
     return calculateBoolean(x);
-  } else if (isBinary(x)) {
-    return calculateBinary(x);
   } else if (isNull(x)) {
     return calculateNull(x);
   }
