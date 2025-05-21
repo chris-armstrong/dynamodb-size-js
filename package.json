@@ -11,16 +11,13 @@
     "url": "https://github.com/chris-armstrong/dynamodb-size-js.git"
   },
   "devDependencies": {
+    "@biomejs/biome": "1.9.4",
     "aws-sdk": "^2.904.0",
-    "eslint": "^7.26.0",
-    "eslint-config-standard": "^14.1.1",
-    "eslint-plugin-import": "^2.22.1",
-    "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-promise": "^4.3.1",
-    "eslint-plugin-standard": "^4.1.0",
     "jest": "^29.7.0"
   },
   "scripts": {
+    "lint": "biome check",
+    "format": "biome format",
     "test": "jest"
   }
 }
